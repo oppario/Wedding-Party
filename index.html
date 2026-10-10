@@ -1864,5 +1864,61 @@ TUHAN YANG MAHA ESA<p>
 
     </script>
 
+<script>
+(function () {
+    // Menonaktifkan seleksi teks
+    document.addEventListener('selectstart', function (e) {
+        e.preventDefault();
+    });
+
+    // Menonaktifkan klik kanan
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // Menonaktifkan copy, cut, dan drag teks
+    ['copy', 'cut', 'dragstart'].forEach(function (event) {
+        document.addEventListener(event, function (e) {
+            e.preventDefault();
+        });
+    });
+
+    // Memblokir shortcut tertentu
+    document.addEventListener('keydown', function (e) {
+        const key = e.key.toLowerCase();
+
+        if (
+            (e.ctrlKey || e.metaKey) &&
+            ['c', 'x', 'u', 's', 'a', 'p'].includes(key)
+        ) {
+            e.preventDefault();
+        }
+
+        // Memblokir F12 dan shortcut Developer Tools
+        if (
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey &&
+             ['i', 'j', 'c'].includes(key))
+        ) {
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+
+<style>
+/* Mencegah seleksi teks pada halaman */
+body {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Tetap mengizinkan input dan area teks */
+input, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
+}
+</style>
+
 </body>
 </html>
